@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/fast-fingers/static/css/main.90457005.css",
+    "main.js": "/fast-fingers/static/js/main.de573ee2.js",
+    "index.html": "/fast-fingers/index.html",
+    "main.90457005.css.map": "/fast-fingers/static/css/main.90457005.css.map",
+    "main.de573ee2.js.map": "/fast-fingers/static/js/main.de573ee2.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.90457005.css",
+    "static/js/main.de573ee2.js"
+  ]
+}
