@@ -7,6 +7,7 @@ import StartGame from "./StartGame";
 import CustomCursor from "./CustomCursor";
 import WarningModal from "./WarningModal";
 import GameContainer from "./GameContainer";
+import KeyboardShortcuts from "./KeyboardShortcuts";
 
 const App = () => {
   const [countdown, setCountdown] = useState(3);
@@ -24,8 +25,9 @@ const App = () => {
   const [duration, setDuration] = useState(0);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [gameMode, setGameMode] = useState("normal");
+  const [isHelpOpen, setIsHelpOpen] = useState(false);
 
-  const timeAttack = 20;
+  const timeAttack = 1200;
 
   useEffect(() => {
     if (gameActive && countdown === 0 && timeLeft > 0) {
@@ -95,6 +97,19 @@ const App = () => {
     }
   }, [wordStack, gameTime, gameMode]);
 
+  useEffect(() => {
+    const handleHelp = (e) => {
+      if (e.ctrlKey && e.key.toLowerCase() === "h") {
+        e.preventDefault();
+        handleToggleHelp();
+      }
+    };
+    document.addEventListener("keydown", handleHelp);
+    return () => {
+      document.removeEventListener("keydown", handleHelp);
+    };
+  }, [setIsHelpOpen]);
+
   const handleCancelModal = () => {
     setIsModalOpen(false);
   };
@@ -162,49 +177,56 @@ const App = () => {
     setIsModalOpen(false);
   };
 
+  const handleToggleHelp = () => {
+    setIsHelpOpen((isHelpOpen) => !isHelpOpen);
+  };
+
   return (
     <>
-      <CustomCursor />
-      {isModalOpen && gameActive ? (
-        <WarningModal onCancelModal={handleCancelModal} />
-      ) : (
-        ""
-      )}
+      <main>
+        {isHelpOpen && <KeyboardShortcuts setIsHelpOpen={setIsHelpOpen} />}
+        <CustomCursor />
+        {isModalOpen && gameActive ? (
+          <WarningModal onCancelModal={handleCancelModal} />
+        ) : (
+          ""
+        )}
 
-      {!hasStarted ? (
-        <StartGame
-          gameMode={gameMode}
-          setGameMode={setGameMode}
-          gameTime={gameTime}
-          setGameTime={setGameTime}
-          selectedLevel={selectedLevel}
-          setSelectedLevel={setSelectedLevel}
-          handleStartGame={handleStartGame}
-        />
-      ) : (
-        <GameContainer
-          feedback={feedback}
-          gameTime={gameTime}
-          timeLeft={timeLeft}
-          countdown={countdown}
-          wordStack={wordStack}
-          inputValue={inputValue}
-          gameActive={gameActive}
-          activeLight={activeLight}
-          completedWords={completedWords}
-          handleInputChange={handleInputChange}
-        />
-      )}
+        {!hasStarted ? (
+          <StartGame
+            gameMode={gameMode}
+            setGameMode={setGameMode}
+            gameTime={gameTime}
+            setGameTime={setGameTime}
+            selectedLevel={selectedLevel}
+            setSelectedLevel={setSelectedLevel}
+            handleStartGame={handleStartGame}
+          />
+        ) : (
+          <GameContainer
+            feedback={feedback}
+            gameTime={gameTime}
+            timeLeft={timeLeft}
+            countdown={countdown}
+            wordStack={wordStack}
+            inputValue={inputValue}
+            gameActive={gameActive}
+            activeLight={activeLight}
+            completedWords={completedWords}
+            handleInputChange={handleInputChange}
+          />
+        )}
 
-      {!gameActive && countdown === 0 && (
-        <GameOver
-          onResetGame={handleRestartGame}
-          timeLeft={timeLeft}
-          duration={duration}
-          completedWords={completedWords}
-          totalWords={wordStack.length + completedWords.length}
-        />
-      )}
+        {!gameActive && countdown === 0 && (
+          <GameOver
+            onResetGame={handleRestartGame}
+            timeLeft={timeLeft}
+            duration={duration}
+            completedWords={completedWords}
+            totalWords={wordStack.length + completedWords.length}
+          />
+        )}
+      </main>
     </>
   );
 };
