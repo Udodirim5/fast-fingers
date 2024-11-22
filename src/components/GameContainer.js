@@ -38,7 +38,12 @@ const GameContainer = ({
                 handleInputChange={handleInputChange}
               />
               <ProgressBar timeLeft={timeLeft} gameTime={gameTime} />
-              <div className="timer">Time Left: {timeLeft}s</div>
+              <div
+                className="timer"
+                style={{ color: timeLeft > 3 ? "green" : "red" }}
+              >
+                Time Left: {timeLeft}s
+              </div>
             </div>
           </div>
         )}

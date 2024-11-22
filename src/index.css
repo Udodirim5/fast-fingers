@@ -91,7 +91,11 @@ body {
 .timer {
   margin-top: 20px;
   font-size: 18px;
-  color: red;
+  background-color: var(--primary);
+  font-weight: bold;
+  padding: 10px 20px;
+  border-radius: 10px;
+  border: 2px solid var(--primary-2);
 }
 
 .progress-bar {
@@ -173,6 +177,8 @@ body {
 
 .back-card h1 {
   font-size: 2.3rem;
+  text-transform: uppercase;
+  font-style: italic;
 }
 
 .level-back-btn {
@@ -205,11 +211,11 @@ body {
 
 .back-card span {
   padding: 10px;
-  font-size: 1.5rem;
+  font-size: 1.1rem;
 }
 
 .back-card select {
-  font-size: 1.3rem;
+  font-size: 1.1rem;
   padding: 10px;
   background: none;
   border: none;
