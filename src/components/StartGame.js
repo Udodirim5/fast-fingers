@@ -12,6 +12,8 @@ const StartGame = ({
   setGameTime,
   gameMode,
   setGameMode,
+  onHelpOpen,
+  isHelpOpen,
 }) => {
   const [atHome, setAtHome] = useState(false);
 
@@ -22,7 +24,7 @@ const StartGame = ({
   return (
     <>
       {!atHome ? (
-        <GameBox>
+        <GameBox onHelpOpen={onHelpOpen} isHelpOpen={isHelpOpen}>
           <Home
             gameMode={gameMode}
             onNext={handleNext}
@@ -30,7 +32,7 @@ const StartGame = ({
           />
         </GameBox>
       ) : (
-        <GameBox>
+        <GameBox onHelpOpen={onHelpOpen}>
           <GameLevelBox
             gameTime={gameTime}
             gameMode={gameMode}

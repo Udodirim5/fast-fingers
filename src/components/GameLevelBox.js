@@ -16,7 +16,9 @@ const GameLevelBox = ({
   return (
     <>
       <h1>Fast Fingers</h1>
-      <button className="level-back-btn" onClick={handleBackBtn}>&#8666;</button>
+      <button className="level-back-btn" onClick={handleBackBtn}>
+        <span>&#8666;</span>
+      </button>
       <div className="level-select">
         <span>Choose a level</span>
         <select

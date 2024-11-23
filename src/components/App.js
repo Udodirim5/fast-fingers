@@ -183,8 +183,14 @@ const App = () => {
 
   return (
     <>
+      <Design />
       <main>
-        {isHelpOpen && <KeyboardShortcuts setIsHelpOpen={setIsHelpOpen} />}
+        {isHelpOpen && (
+          <KeyboardShortcuts
+            onHelpOpen={handleToggleHelp}
+            isHelpOpen={isHelpOpen}
+          />
+        )}
         <CustomCursor />
         {isModalOpen && gameActive ? (
           <WarningModal onCancelModal={handleCancelModal} />
@@ -194,6 +200,8 @@ const App = () => {
 
         {!hasStarted ? (
           <StartGame
+            onHelpOpen={handleToggleHelp}
+            isHelpOpen={isHelpOpen}
             gameMode={gameMode}
             setGameMode={setGameMode}
             gameTime={gameTime}
@@ -202,6 +210,8 @@ const App = () => {
             setSelectedLevel={setSelectedLevel}
             handleStartGame={handleStartGame}
           />
+        ) : isModalOpen ? (
+          ""
         ) : (
           <GameContainer
             feedback={feedback}
@@ -213,12 +223,15 @@ const App = () => {
             gameActive={gameActive}
             activeLight={activeLight}
             completedWords={completedWords}
+            setIsModalOpen={setIsModalOpen}
             handleInputChange={handleInputChange}
           />
         )}
 
         {!gameActive && countdown === 0 && (
           <GameOver
+            onHelpOpen={handleToggleHelp}
+            isHelpOpen={isHelpOpen}
             onResetGame={handleRestartGame}
             timeLeft={timeLeft}
             duration={duration}
@@ -228,6 +241,15 @@ const App = () => {
         )}
       </main>
     </>
+  );
+};
+
+const Design = () => {
+  return (
+    <div className="design_container">
+      <div className="circle"></div>
+      <div className="circle-two"></div>
+    </div>
   );
 };
 

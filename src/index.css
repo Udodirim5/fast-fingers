@@ -14,6 +14,13 @@
 
 * {
   box-sizing: border-box;
+  scrollbar-width: none;
+}
+
+*::-webkit-scrollbar {
+  display: none;
+  width: 0;
+  height: 0;
 }
 
 body {
@@ -22,21 +29,24 @@ body {
   font-family: var(--fontFamily-oxanium);
 }
 
+main {
+  height: 90vh;
+}
+
 .game-container {
-  height: 95vh;
   display: flex;
   justify-content: center;
   align-items: center;
+  height: 100%;
 }
 
 .game-container-inner {
-  position: relative;
   width: 300px;
-  height: 400px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  height: inherit;
 }
 
 .words-wall {
@@ -127,25 +137,13 @@ body {
 
 .completed-scores p {
   margin: 5px;
-  font-size: 1.4rem;
+  font-size: 1.2rem;
   text-transform: capitalize;
 }
 
 .completed-scores .score-header {
   text-align: right;
 }
-
-
-
-
-
-
-
-
-
-
-
-
 
 .back-card {
   position: absolute;
@@ -184,11 +182,15 @@ body {
 .level-back-btn {
   all: unset;
   position: absolute;
-  top: 10px;
-  left: 10px;
-  padding: 10px 16px;
+  top: 15px;
+  left: 15px;
+  height: 40px;
+  width: 40px;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  align-items: center;
   background: #8080802c;
-  font-size: 1.3rem;
   border-radius: 50%;
   color: #8080808a;
   cursor: pointer;
@@ -200,12 +202,22 @@ body {
   background: #808080b4;
 }
 
+.level-back-btn span {
+  line-height: 0;
+  font-size: 1.3rem;
+  padding: 10px 16px;
+}
+
+.pause span {
+  font-weight: bold;
+}
 
 .back-card .level-select {
   margin: 10px 0;
   border: 2px solid #8080808a;
   text-align: center;
   align-items: center;
+  padding: 10px;
   border-radius: 5px;
 }
 
@@ -275,6 +287,7 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  z-index: 10;
 }
 
 .start-timer h1 {
@@ -289,7 +302,7 @@ body {
   border-radius: 5px;
   align-items: center;
   justify-content: center;
-  background-color: #ffffff2d;
+  background: linear-gradient(135deg, #0d1120 0%, #3a4b8a 43%, #0d1120 100%);
   box-shadow: 0px 0px 10px #00000080;
 }
 
@@ -301,7 +314,7 @@ body {
   border-radius: 50%;
   transition: all 0.5s;
   background-color: #ffffff6e;
-  box-shadow: 0px 0px 10px #00000080;
+  box-shadow: 0px 0px 10px #000000b2;
 }
 
 .light.active {
@@ -356,7 +369,6 @@ body {
   cursor: none;
 }
 
-
 .modal-container {
   z-index: 9998;
   position: fixed;
@@ -399,11 +411,6 @@ body {
 }
 
 
-
-
-
-
-
 /* ============ HELP =========== */
 .shortcut-help {
   position: fixed;
@@ -419,7 +426,6 @@ body {
   right: 20px;
   font-size: 24px;
   cursor: pointer;
-  transform: scaleX(1.2);
 }
 
 .shortcut-help h2 {
@@ -454,24 +460,39 @@ body {
 
 
 
+/* ============ Design =========== */
+.design_container {
+  position: fixed;
+  inset: 0 0 0 0;
+}
+
+.circle {
+  width: 617px;
+  height: 617px;
+  background: #D660FF;
+  opacity: .85;
+  border-radius: 50%;
+  filter: blur(150px);
+  position: absolute;
+  top: 62px;
+  right: -390px;
+}
+
+.circle-two {
+  width: 617px;
+  height: 617px;
+  background: #6079FF;
+  opacity: .85;
+  border-radius: 50%;
+  filter: blur(150px);
+  position: absolute;
+  top: -365px;
+  left: -123px;
+}
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+/* ============ Media Queries =========== */
 @media(max-width: 768px) {
   .back-card-inner {
     min-width: 300px;
@@ -484,6 +505,25 @@ body {
   .help-grid {
     grid-template-columns: 1fr;
     margin-top: 280px;
+  }
+
+  .level-back-btn span {
+    margin-top: -5px;
+  }
+
+  .pause span {
+    margin-top: 0;
+  }
+
+}
+
+@media(max-width: 500px) {
+  .back-card-inner {
+    min-width: 300px;
+    width: 280px;
+    padding: 10px;
+    max-height: 90dvh;
+    overflow-y: auto;
   }
 
 }

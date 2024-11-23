@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import Button from "./Button";
+import GameBox from "./GameBox";
 
 const GameOver = ({
   completedWords,
@@ -7,16 +8,17 @@ const GameOver = ({
   duration,
   timeLeft,
   onResetGame,
+  onHelpOpen,
+  isHelpOpen,
 }) => {
   const accuracy = Math.round((completedWords.length / totalWords) * 100) || 0; // Prevent NaN if no words
 
   useEffect(() => {
     document.title = "Game Over";
     return () => {
-      document.title = "Fast fingers"; 
+      document.title = "Fast fingers";
     };
   }, []);
-
 
   useEffect(() => {
     if (timeLeft === 0) {
@@ -35,26 +37,24 @@ const GameOver = ({
   }, [timeLeft, onResetGame]);
 
   return (
-    <div className="back-card">
-      <div className="back-card-inner">
-        <h1>{accuracy === 100 ? "You win" : "Game Over"}!</h1>
-        <div className="completed-scores">
-          <div className="score-header">
-            <p>Words Typed</p>
-            <p>Accuracy</p>
-            <p>Duration</p>
-          </div>
-          <div className="score-values">
-            <p>{completedWords.length} words</p>
-            <p>{accuracy}%</p>
-            <p>{duration} Seconds</p>
-          </div>
+    <GameBox onHelpOpen={onHelpOpen} isHelpOpen={isHelpOpen}>
+      <h1>{accuracy === 100 ? "You win" : "Game Over"}!</h1>
+      <div className="completed-scores">
+        <div className="score-header">
+          <p>Words Typed</p>
+          <p>Accuracy</p>
+          <p>Duration</p>
         </div>
-        <Button className="button" onClick={onResetGame}>
-          Play Again
-        </Button>
+        <div className="score-values">
+          <p>{completedWords.length} words</p>
+          <p>{accuracy}%</p>
+          <p>{duration} Seconds</p>
+        </div>
       </div>
-    </div>
+      <Button className="button" onClick={onResetGame}>
+        Play Again
+      </Button>
+    </GameBox>
   );
 };
 

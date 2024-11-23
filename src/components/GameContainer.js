@@ -14,8 +14,12 @@ const GameContainer = ({
   gameActive,
   activeLight,
   completedWords,
+  setIsModalOpen,
   handleInputChange,
 }) => {
+  const handleToggleModal = () => {
+    setIsModalOpen((isModalOpen) => !isModalOpen);
+  };
   return (
     <div className="game-container">
       <div className="game-container-inner">
@@ -28,6 +32,10 @@ const GameContainer = ({
         {countdown === 0 && gameActive && (
           <div className="back-card">
             <div className="back-card-inner">
+              <button className="level-back-btn pause" onClick={handleToggleModal}>
+                <span>| |</span>
+              </button>
+
               <WordStacks
                 wordStack={wordStack}
                 completedWords={completedWords}

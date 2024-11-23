@@ -1,6 +1,6 @@
 import GameBox from "./GameBox";
 
-const KeyboardShortcuts = ({ setIsHelpOpen }) => {
+const KeyboardShortcuts = ({ onHelpOpen, isHelpOpen }) => {
   const shortcuts = [
     { key: "Ctrl + H", action: "Toggle the help window" },
     { key: "Ctrl + Z", action: "Undo last action" },
@@ -14,14 +14,10 @@ const KeyboardShortcuts = ({ setIsHelpOpen }) => {
     { key: "Space bar", action: "Restart the game" },
   ];
 
-  const handleCloseHelp = () => setIsHelpOpen(false);
 
   return (
     <div className="shortcut-help">
-      <GameBox>
-        <button onClick={handleCloseHelp} className="close-help">
-          x
-        </button>
+      <GameBox onHelpOpen={onHelpOpen} isHelpOpen={isHelpOpen}>
         <h2>Keyboard Shortcuts</h2>
         <div className="help-grid">
           {shortcuts.map((shortcut, index) => (
